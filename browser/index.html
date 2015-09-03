@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fritzbox bandwidth view</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="http://code.highcharts.com/adapters/standalone-framework.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script>
+      System.import('./scripts/app');
+    </script>
+</head>
+    <body>
+        <div class="container" ng-app="mainApp">
+          <div class="well" ng-controller="mainCtrl as main">
+            <highchart id="chart_downstream" config="main.data.graph.downstream" ></highchart>
+            <highchart id="chart_upstream" config="main.data.graph.upstream" ></highchart>
+            <p class="heading">Current Downstream: {{main.data.current.downstream}}</p>
+            <p class="heading">Current Upstream: {{main.data.current.upstream}}</p>
+          </div>
+      </div>
+    </body>
+</html>
