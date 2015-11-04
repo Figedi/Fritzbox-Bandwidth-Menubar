@@ -14,7 +14,8 @@
     "gulp-electron": "~0.0.9",
     "gulp-rename": "^1.2.2",
     "gulp-run": "^1.6.8",
-    "gulp-run-electron": "^1.1.1"
+    "gulp-run-electron": "^1.1.1",
+    "jspm": "^0.16.14"
   },
   "jspm": {
     "directories": {
@@ -23,19 +24,21 @@
     },
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.4.5",
-      "angular-chart": "npm:angular-chart.js@^0.8.1",
-      "bootstrap": "github:twbs/bootstrap@^3.3.5",
-      "chartsjs": "npm:chart.js@^1.0.2",
+      "angular-ui-router": "github:angular-ui/ui-router@^0.2.15",
+      "c3": "npm:c3@^0.4.11-rc4",
       "css": "github:systemjs/plugin-css@^0.1.15",
-      "highcharts-ng": "npm:highcharts-ng@^0.0.9-dev"
+      "highcharts-ng": "npm:highcharts-ng@^0.0.9-dev",
+      "photon": "github:connors/photon@^0.1.2-alpha"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
     }
   },
   "dependencies": {
+    "bluebird": "^3.0.5",
+    "lodash": "^3.10.1",
     "menubar": "^2.2.0",
     "request": "^2.61.0",
     "xml2js": "^0.4.10"

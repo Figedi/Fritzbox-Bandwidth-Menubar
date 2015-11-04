@@ -1,20 +1,26 @@
 import request from 'request';
-import common from './common';
+import Promise from 'bluebird';
+import _ from 'lodash';
+
+import { common } from './common';
 
 let utils = {
   writeURL: (url, data, callback) => {
     let opts = {
       url: url + `?username=admin&response=${data}`
     }
-    request(opts, (error, response, body) => {
-      if (error) {
-        _log('Renderer', error);
-        callback(error, undefined);
-      }
-      else {
-        callback(undefined, body)
-      }
-    });
+    return new Promise((resolve, reject) => {
+      return request(opts, (error, response, body) => {
+        if (error) {
+          _log('Renderer', error);
+          reject(error);
+        }
+        else {
+          resolve(body);
+        }
+      });
+    })
+
   },
   readURL: (url, callback) => {
     let opts = {
@@ -24,15 +30,18 @@ let utils = {
         'Content-Type': 'text/plain'
       }
     }
-    request(opts, (error, response, body) => {
-      if (error) {
-        _log('Renderer', error);
-        callback(error, undefined);
-      }
-      else {
-        callback(undefined, body);
-      }
-    });
+    return new Promise((resolve, reject) => {
+      return request(opts, (error, response, body) => {
+        if (error) {
+          _log('Renderer', error);
+          reject(error);
+        }
+        else {
+          resolve(body);
+        }
+      });
+    })
+
   }
 }
 for (let key in common) {

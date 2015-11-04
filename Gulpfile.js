@@ -8,7 +8,7 @@ var gulp   = require('gulp'),
 
 gulp.task('transpile-app', function() {
   return gulp.src('app/src/*.es6')
-    .pipe(babel())
+    .pipe(babel({ stage: 0 }))
     .pipe(rename(function(path) {
       path.extname = '.js'
     }))

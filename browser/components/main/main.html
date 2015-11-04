@@ -1,0 +1,29 @@
+<header class="toolbar toolbar-header toolbar-header-padding">
+  <h1 class="title">Fritzbox Bandwidth Usage</h1>
+  <div class="toolbar-actions">
+    <button class="btn btn-default pull-right" ui-sref="config">
+      <span class="icon icon-cog"></span>
+    </button>
+  </div>
+</header>
+<div class="window-content window-container">
+  <div class="container-fix">
+    <div class="graph">
+
+      <h4 class="heading"><span class="icon icon-download"></span> Downstream {{main.data.current.downstream}}</h2>
+      <c3-chart id="downstream" config="main.data.graph.downstream"></c3-chart>
+
+      <h4 class="heading"><span class="icon icon-upload"></span> Upstream {{main.data.current.upstream}}</h2>
+      <c3-chart id="upstream" config="main.data.graph.upstream"></c3-chart>
+    </div>
+  </div>
+</div>
+<footer class="toolbar toolbar-footer">
+
+  <div class="toolbar-actions">
+    <button type="button" class="btn btn-default pull-right"  ng-click="main.exit()">
+      <span class="icon icon-cancel"></span>
+      &nbsp;Close&nbsp;
+    </button>
+  </div>
+</footer>

@@ -1,0 +1,49 @@
+<header class="toolbar toolbar-header toolbar-header-padding">
+  <h1 class="title">Configuration</h1>
+  <div class="toolbar-actions">
+    <button class="btn btn-default" ng-click="config.cancel()">
+      Back
+    </button>
+  </div>
+</header>
+<div class="window-content window-container">
+  <form class="config-fix">
+    <div class="form-group">
+      <label>IP</label>
+      <hr class="form-separator" />
+      <input class="form-control" ng-model="config.form.ip">
+    </div>
+    <div class="form-group">
+      <label>User</label>
+      <hr class="form-separator" />
+      <input class="form-control" ng-model="config.form.admin">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <hr class="form-separator" />
+      <input type="password" class="form-control" ng-model="config.form.password">
+    </div>
+    <hr class="form-separator" />
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" ng-model="config.form.startup"> Run at Startup
+      </label>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn-positive" ng-click="config.submit()">
+        Submit & Back
+      </button>
+      <button type="button" class="btn btn-default" ng-click="config.cancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+<footer class="toolbar toolbar-footer">
+  <div class="toolbar-actions">
+    <button type="button" class="btn btn-default pull-right"  ng-click="config.exit()">
+      <span class="icon icon-cancel"></span>
+      &nbsp;Close&nbsp;
+    </button>
+  </div>
+</footer>
