@@ -229,4 +229,8 @@ export default class MainCtrl {
     if (kbps)
       return `${kbps} Kbit/s`
   }
+
+  exit() {
+    ipc.send('renderer', { type: 'EXIT' });
+  }
 }
