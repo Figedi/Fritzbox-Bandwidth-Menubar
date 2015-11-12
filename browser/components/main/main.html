@@ -8,7 +8,12 @@
 </header>
 <div class="window-content window-container">
   <div class="container-fix">
-    <div class="graph">
+    <div class="well" ng-show="main.connectionError">
+      <h2 >Connection Error</h2>
+      <p>Did you setup IP and password correctly?</p>
+      <code>{{main.connectionError}}</code>
+    </div>
+    <div class="graph" ng-hide="main.connectionError">
 
       <h4 class="heading"><span class="icon icon-download"></span> Downstream {{main.data.current.downstream}}</h2>
       <c3-chart id="downstream" config="main.data.graph.downstream"></c3-chart>

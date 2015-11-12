@@ -1,39 +1,22 @@
-// configstore:
-// https://github.com/atom/electron/blob/f02cae1b0ab60824f76dfdfb13732edee5924eae/docs/api/app.md#appgetpathname
-// app.getPath('userData') --> .json einfach reinschreiben fertig z.b. mit
-// {
-//  "username": "foo",
-//  "ip": "bar",
-//  "password": "baz"
-// }
-//
 import { exec } from 'child_process';
 import { parseString } from 'xml2js';
 import _ from 'lodash';
 import Promise from 'bluebird';
 
 import utils from './utils';
-import { config } from './config';
-
-const defaultConfig = {
-  base: 'http://fritz.box',
-  login: '/login_sid.lua',
-  password: process.env.FRITZ_PW
-}
 
 export default class Fritzbox {
 
   static DEFAULT_CONFIG = {
     base: 'http://fritz.box',
     login: '/login_sid.lua',
-    password: process.env.FRITZ_PW,
-    user: 'admin'
+    password: process.env.FRITZ_PW || '',
   }
 
   constructor(opts, logger) {
     this.opts = _.assign(Fritzbox.DEFAULT_CONFIG, opts);
     this.lastCall = {};
-    this.logger = logger;
+    this.logger = logger || console;
   }
 
   /**
@@ -93,7 +76,7 @@ export default class Fritzbox {
       //maybe use buffers (encoding) & crypto http://lollyrock.com/articles/nodejs-encryption/
       exec(`printf "%s" "${challengeBF}" | iconv -f ISO8859-1 -t UTF-16LE | md5 | sed "s/ .*$//"`, (error, stdout, stderr) => {
         if (error) {
-          utils.log('Renderer', error);
+          this.logger.error('Renderer', error);
           reject(error);
         }
         else {
@@ -114,7 +97,7 @@ export default class Fritzbox {
     return new Promise((resolve, reject) => {
       parseString(xml, (error, result) => {
         if (error) {
-          utils.log('Renderer', error);
+          this.logger.error('Renderer', error);
           reject(error);
         }
         else {
@@ -122,7 +105,7 @@ export default class Fritzbox {
           if (token && token != '0000000000000000')
             resolve(token);
           else
-            reject({ msg: 'No SID created, was: ' + token });
+            reject({ code: 'SID_ERROR', msg: 'No SID created, was: ' + token });
         }
       });
     });
@@ -139,14 +122,14 @@ export default class Fritzbox {
     return new Promise((resolve, reject) => {
       parseString(xml, (error, result) => {
         if (error) {
-          utils.log('Renderer', error);
+          this.logger.error('Renderer', error);
           reject(error);
         }
         let challenge = result.SessionInfo.Challenge;
         if (challenge)
           resolve(challenge);
         else
-          reject({ msg: 'No challenge found' });
+          reject({ code: 'NO_CHALLENGE', msg: 'No challenge found' });
       });
     });
   }
@@ -290,7 +273,7 @@ export default class Fritzbox {
         data = JSON.parse(data)[0]; // is an array with 1 element
       }
       catch (e) { // sometimes returns a HTML page with 503, out of memory
-        utils.log('Renderer', e);
+        this.logger.error('Renderer', e);
         throw e; // log then rethrow for promise catch
       }
 

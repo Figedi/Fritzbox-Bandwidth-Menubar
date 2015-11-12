@@ -1,8 +1,9 @@
 import request from 'request';
 import Promise from 'bluebird';
-import _ from 'lodash';
 
-import { common } from './common';
+import { utils as commonUtils } from './common';
+
+let logger = commonUtils.getLogger();
 
 let utils = {
   writeURL: (url, data, callback) => {
@@ -12,7 +13,7 @@ let utils = {
     return new Promise((resolve, reject) => {
       return request(opts, (error, response, body) => {
         if (error) {
-          _log('Renderer', error);
+          logger.error('Renderer', error);
           reject(error);
         }
         else {
@@ -33,7 +34,7 @@ let utils = {
     return new Promise((resolve, reject) => {
       return request(opts, (error, response, body) => {
         if (error) {
-          _log('Renderer', error);
+          logger.error('Renderer', error);
           reject(error);
         }
         else {
@@ -44,7 +45,7 @@ let utils = {
 
   }
 }
-for (let key in common) {
-  utils[key] = common[key];
+for (let key in commonUtils) {
+  utils[key] = commonUtils[key];
 }
 export default utils;

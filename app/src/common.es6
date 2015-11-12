@@ -161,6 +161,10 @@ export class RemoteLogger {
   warn(head, ...args) {
     this._sendRemote('warn', `${head} (Remote)`, args);
   }
+
+  logRaw(...args) {
+    this._sendRemote('logRaw', 'LogRaw (Remote)', args);
+  }
 }
 
 //================ Normal Config

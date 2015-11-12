@@ -102,7 +102,17 @@ export default class MainCtrl {
   }
 
   onIPCRemote(msg) {
-    this.formatData(msg.data);
+    if (msg.type == 'connection-error') {
+      // display connection-error overlay
+      this.connectionError = msg.error;
+    } else if (msg.type == 'data') {
+      this.connectionError = false;
+      this.formatData(msg.data);
+    } else if (msg.type == 'data-error') {
+      this.$rootScope.logger.logRaw('data-error', JSON.stringify(msg));
+    } else {
+      this.$rootScope.logger.logRaw('unknown-error', JSON.stringify(msg));
+    }
     this.$scope.$apply();
   }
 
