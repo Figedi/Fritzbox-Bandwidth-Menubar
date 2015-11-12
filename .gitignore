@@ -2,3 +2,6 @@ node_modules/*
 browser/jspm_packages/*
 app/*.js
 app/src/config.es6
+cache/*
+package/*
+dist/*
